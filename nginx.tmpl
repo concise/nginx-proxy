@@ -60,20 +60,17 @@ map $scheme $proxy_x_forwarded_ssl {
 gzip_types text/plain text/css application/javascript application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
 
 log_format vhost '$time_iso8601'
-                 ' host=$host'
-                 ' remote_addr=$remote_addr'
-                 ' request_time=$request_time'
-                 ' status=$status'
-                 ' body_bytes_sent=$body_bytes_sent'
-                 ' request="$request"'
-                 ' content_length=$content_length'
-                 ' http_user_agent="$http_user_agent"'
-                 ' http_referer=$http_referer'
-                 ' pipe=$pipe'
-                 ' connection=$connection'
-                 ' connection_requests=$connection_requests'
-                 ' upstream_connect_time=$upstream_connect_time'
-                 ' upstream_response_time=$upstream_response_time'
+                 ' | $remote_addr($connection,$connection_requests)'
+                 ' | $host'
+                 ' | $status'
+                 ' | $bytes_sent bytes'
+                 ' | $request_time seconds'
+                 ' | requestline="$request"'
+                 ' | useragent="$http_user_agent"'
+                 ' | referer=$http_referer'
+                 ' | $pipe'
+                 ' | $upstream_connect_time'
+                 ' | $upstream_response_time'
                  ;
 
 access_log off;
